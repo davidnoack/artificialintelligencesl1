@@ -23,6 +23,8 @@ public class CellularAutomaton extends Application {
 
 	// Zellfeld
 	private Canvas cellularField = new Canvas();
+	private Button startSimulation = new Button();
+	GridPane grid = new GridPane();
 
 	// Slider für das wählen der Feldgröße
 	private Slider slider = new Slider();
@@ -33,7 +35,6 @@ public class CellularAutomaton extends Application {
 
 	@Override
 	public void start(Stage primaryStage) {
-		Thread.currentThread().setPriority(Thread.MAX_PRIORITY);
 
 		primaryStage.setTitle("Zellul\u00e4rer Automat");
 
@@ -45,7 +46,7 @@ public class CellularAutomaton extends Application {
 		TextField countField = new TextField("0");
 
 		slider.setMin(0);
-		slider.setMax(200);
+		slider.setMax(100);
 		slider.setOrientation(Orientation.HORIZONTAL);
 		slider.setValue(100);
 		slider.setShowTickLabels(true);
@@ -61,11 +62,9 @@ public class CellularAutomaton extends Application {
 		slider.valueProperty().addListener(e -> sliderLabel.setText(String.valueOf(slider.getValue()).replace(".0", "")));
 
 		// Startknopf
-		Button startSimulation = new Button();
 		startSimulation.setText("Start simulation!");
 		startSimulation.setOnAction(e -> startSimulation(Integer.valueOf(countField.getText()).intValue()));
 
-		GridPane grid = new GridPane();
 		grid.setHgap(10);
 		grid.setVgap(10);
 		grid.setPadding(new Insets(0, 10, 0, 10));
@@ -96,6 +95,8 @@ public class CellularAutomaton extends Application {
 		cellularField.setWidth(xMax * dMax + 2);
 		try {
 			cellularField.getGraphicsContext2D().clearRect(0, 0, cellularField.getWidth(), cellularField.getHeight());
+			LogicHandler.getInstance().getTimer().cancel();
+			LogicHandler.getInstance().getTimer().purge();
 			LogicHandler.getInstance().simulate(this, count, xMax);
 		} catch (Exception e) {
 			System.out.println(e.getLocalizedMessage());
@@ -106,31 +107,19 @@ public class CellularAutomaton extends Application {
 		return xMax;
 	}
 
-	public void setxMax(int xMax) {
-		this.xMax = xMax;
-	}
-
-	public int getyMax() {
-		return yMax;
-	}
-
-	public void setyMax(int yMax) {
-		this.yMax = yMax;
-	}
-
 	public int getdMax() {
 		return dMax;
-	}
-
-	public void setdMax(int dMax) {
-		this.dMax = dMax;
 	}
 
 	public Canvas getCellularField() {
 		return cellularField;
 	}
 
-	public void setCellularField(Canvas cellularField) {
-		this.cellularField = cellularField;
+	public Button getStartSimulation() {
+		return startSimulation;
+	}
+
+	public GridPane getGrid() {
+		return grid;
 	}
 }

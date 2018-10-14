@@ -23,10 +23,6 @@ public class Cellfield {
 		return cellField;
 	}
 
-	public void setCellfield(ArrayList <List <Cell>> cellfield) {
-		this.cellField = cellfield;
-	}
-
 	public Cell getCellByPos(int xPos, int yPos) {
 		for (List <Cell> cellList : cellField) {
 			for (Cell cell : cellList) {

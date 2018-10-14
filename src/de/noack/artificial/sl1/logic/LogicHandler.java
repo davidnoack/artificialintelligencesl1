@@ -14,6 +14,8 @@ import java.util.*;
  */
 public class LogicHandler {
 
+	private Timer timer = new Timer();
+
 	// Hier wird die einzig erzeugbare Instanz deklariert und instanziiert.
 	private static LogicHandler ourInstance = new LogicHandler();
 	// Für jeden Durchlauf der Regeln wird der Timer Count um 1 erhöht. Dies ist notwendig, um sicherzustellen, dass nach Erreichen der gewünschten
@@ -27,9 +29,10 @@ public class LogicHandler {
 
 	// Die Methode "simulate" erhält die graphische Oberfläche als Input und manipuliert diese anhand der Eingabedaten. Hierzu wird zunächst das
 	// fachliche Modell initialisiert und im Anschluss anhand der gewählten Parameter mit den definierten Regeln manipuliert.
-	public void simulate(CellularAutomaton gui, int count, int fieldSize) throws InterruptedException {
-		Timer timer = new Timer();
+	public void simulate(CellularAutomaton gui, int count, int fieldSize) {
+		timer.cancel();
 		timer.purge();
+		timer = new Timer();
 		timerCount = 0;
 
 		Cellfield cellfield = new Cellfield(fieldSize, defineRules());
@@ -81,24 +84,27 @@ public class LogicHandler {
 				gc.fillOval(cell.getxPos() * gui.getdMax() + 2, cell.getyPos() * gui.getdMax() + 2, gui.getdMax(), gui.getdMax());
 			}
 		}
+
 		timer.scheduleAtFixedRate(new TimerTask() {
 			@Override
 			public void run() {
 				if (timerCount++ >= count) {
-					timer.purge();
 					timer.cancel();
+					timer.purge();
+					gui.getStartSimulation().setVisible(true);
 					return;
 				}
+				gui.getStartSimulation().setVisible(false);
 				cellfield.applyRules();
-				cellfield.getNeighbourStrategy().initMooreNeighbours(cellfield);
 				for (List <Cell> cellList : cellfield.getCellfield()) {
 					for (Cell cell : cellList) {
 						gc.setFill(cell.getState().getColor());
 						gc.fillOval(cell.getxPos() * gui.getdMax() + 2, cell.getyPos() * gui.getdMax() + 2, gui.getdMax(), gui.getdMax());
 					}
 				}
+				System.out.println("Iteration No.:" + timerCount);
 			}
-		}, 0, gui.getxMax() ^ 2);
+		}, 1,500);
 	}
 
 	/**
@@ -110,32 +116,28 @@ public class LogicHandler {
 
 		// Da die Regeln Teil der Logik sind, werden sie hier im Logic Handler einzeln definiert, in eine ArrayList gepackt und dem Modell zur
 		// Selbstanwendung übergeben.
-		return Arrays.asList(new Rule() {
-
-			@Override
-			public void applyRule(Cell cell) {
-				int[] counts = initCell(cell);
-				if ((cell.getState() == State.NADEL) && (counts[State.NADEL.ordinal()] + counts[State.TOTHOLZ.ordinal()] > 4)) {
-					int max = 100;
-					int min = 0;
-					int range = max - min + 1;
-					if (((int) (Math.random() * range) + min) < 90) {
-						cell.setState(State.TOTHOLZ);
-					}
-				}
-				if ((cell.getState() == State.LAUB) && (counts[State.LAUB.ordinal()] == 8)) {
-					cell.setState(State.TOTHOLZ);
-				}
+		return Arrays.asList((Rule) cell -> {
+			int[] counts = initCell(cell);
+			if ((cell.getState() == State.NADEL) && (counts[State.NADEL.ordinal()] + counts[State.TOTHOLZ.ordinal()] > 4)) {
 				int max = 100;
 				int min = 0;
 				int range = max - min + 1;
-				int probability = (int) (Math.random() * range) + min;
-				if ((cell.getState() == State.TOTHOLZ) && (counts[State.TOTHOLZ.ordinal()] > probability / 20)) {
-					if (probability < 50) {
-						cell.setState(State.LAUB);
-					} else {
-						cell.setState(State.NADEL);
-					}
+				if (((int) (Math.random() * range) + min) < 90) {
+					cell.setState(State.TOTHOLZ);
+				}
+			}
+			if ((cell.getState() == State.LAUB) && (counts[State.LAUB.ordinal()] == 8)) {
+				cell.setState(State.TOTHOLZ);
+			}
+			int max = 100;
+			int min = 0;
+			int range = max - min + 1;
+			int probability = (int) (Math.random() * range) + min;
+			if ((cell.getState() == State.TOTHOLZ) && (counts[State.TOTHOLZ.ordinal()] > probability / 20)) {
+				if (probability < 50) {
+					cell.setState(State.LAUB);
+				} else {
+					cell.setState(State.NADEL);
 				}
 			}
 		});
@@ -166,5 +168,9 @@ public class LogicHandler {
 		counts[State.TOTHOLZ.ordinal()] = countTotholz;
 
 		return counts;
+	}
+
+	public Timer getTimer() {
+		return timer;
 	}
 }
