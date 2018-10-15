@@ -5,6 +5,10 @@ import de.noack.artificial.sl1.model.*;
 import javafx.scene.canvas.GraphicsContext;
 
 import java.util.*;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Die Klasse LogicHandler kapselt sämtliche Zugriffe, welche von außen auf das Modell durchgeführt werden. Es handelt sich hierbei um ein Singleton,
@@ -14,13 +18,15 @@ import java.util.*;
  */
 public class LogicHandler {
 
-	private Timer timer = new Timer();
+	ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
 
 	// Hier wird die einzig erzeugbare Instanz deklariert und instanziiert.
 	private static LogicHandler ourInstance = new LogicHandler();
 	// Für jeden Durchlauf der Regeln wird der Timer Count um 1 erhöht. Dies ist notwendig, um sicherzustellen, dass nach Erreichen der gewünschten
 	// Durchlaufzahl, kein weiterer Task mehr durchgeführt wird. Er wird mit 0 initialisiert.
 	int timerCount = 0;
+
+	List<ScheduledFuture> taskList = new ArrayList <>();
 
 	// Allein über diese Methode kann die einzig vorhandene Instanz bezogen werden.
 	public static LogicHandler getInstance() {
@@ -30,9 +36,11 @@ public class LogicHandler {
 	// Die Methode "simulate" erhält die graphische Oberfläche als Input und manipuliert diese anhand der Eingabedaten. Hierzu wird zunächst das
 	// fachliche Modell initialisiert und im Anschluss anhand der gewählten Parameter mit den definierten Regeln manipuliert.
 	public void simulate(CellularAutomaton gui, int count, int fieldSize) {
-		timer.cancel();
-		timer.purge();
-		timer = new Timer();
+		for(ScheduledFuture scheduledFuture : taskList) {
+			scheduledFuture.cancel(true);
+			taskList.clear();
+		}
+		executorService = Executors.newSingleThreadScheduledExecutor();
 		timerCount = 0;
 
 		Cellfield cellfield = new Cellfield(fieldSize, defineRules());
@@ -85,26 +93,20 @@ public class LogicHandler {
 			}
 		}
 
-		timer.scheduleAtFixedRate(new TimerTask() {
-			@Override
-			public void run() {
-				if (timerCount++ >= count) {
-					timer.cancel();
-					timer.purge();
-					gui.getStartSimulation().setVisible(true);
-					return;
-				}
-				gui.getStartSimulation().setVisible(false);
-				cellfield.applyRules();
-				for (List <Cell> cellList : cellfield.getCellfield()) {
-					for (Cell cell : cellList) {
-						gc.setFill(cell.getState().getColor());
-						gc.fillOval(cell.getxPos() * gui.getdMax() + 2, cell.getyPos() * gui.getdMax() + 2, gui.getdMax(), gui.getdMax());
-					}
-				}
-				System.out.println("Iteration No.:" + timerCount);
+		taskList.add(executorService.scheduleAtFixedRate(() -> {
+			if (timerCount++ >= count) {
+				executorService.shutdown();
+				return;
 			}
-		}, 1,500);
+			cellfield.applyRules();
+			for (List <Cell> cellList : cellfield.getCellfield()) {
+				for (Cell cell : cellList) {
+					gc.setFill(cell.getState().getColor());
+					gc.fillOval(cell.getxPos() * gui.getdMax() + 2, cell.getyPos() * gui.getdMax() + 2, gui.getdMax(), gui.getdMax());
+				}
+			}
+			System.out.println("Iteration No.:" + timerCount);
+		}, 1, 1000, TimeUnit.MILLISECONDS));
 	}
 
 	/**
@@ -118,7 +120,7 @@ public class LogicHandler {
 		// Selbstanwendung übergeben.
 		return Arrays.asList((Rule) cell -> {
 			int[] counts = initCell(cell);
-			if ((cell.getState() == State.NADEL) && (counts[State.NADEL.ordinal()] + counts[State.TOTHOLZ.ordinal()] > 4)) {
+			if ((cell.getState() == State.NADEL) && (counts[State.NADEL.ordinal()] + counts[State.TOTHOLZ.ordinal()] > 3)) {
 				int max = 100;
 				int min = 0;
 				int range = max - min + 1;
@@ -170,7 +172,7 @@ public class LogicHandler {
 		return counts;
 	}
 
-	public Timer getTimer() {
-		return timer;
+	public int getTimerCount() {
+		return timerCount;
 	}
 }

@@ -2,6 +2,7 @@ package de.noack.artificial.sl1.gui;
 
 import de.noack.artificial.sl1.logic.LogicHandler;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.scene.Scene;
@@ -37,6 +38,11 @@ public class CellularAutomaton extends Application {
 	public void start(Stage primaryStage) {
 
 		primaryStage.setTitle("Zellul\u00e4rer Automat");
+
+		primaryStage.setOnCloseRequest(t -> {
+			Platform.exit();
+			System.exit(0);
+		});
 
 		// Label Label für die Eingabe der Anzahl der Durchläufe
 		Label countLabel = new Label("Enter count: ");
@@ -74,6 +80,7 @@ public class CellularAutomaton extends Application {
 		grid.add(slider, 2, 0);
 		grid.add(sliderLabel, 3, 0);
 		grid.add(startSimulation, 4, 0);
+		grid.add(new Label("Iteration No.: " + LogicHandler.getInstance().getTimerCount()),5,0);
 		grid.add(cellularField, 0, 1, 5, 1);
 
 		Scene scene = new Scene(grid, 1024, 1048);
@@ -95,16 +102,10 @@ public class CellularAutomaton extends Application {
 		cellularField.setWidth(xMax * dMax + 2);
 		try {
 			cellularField.getGraphicsContext2D().clearRect(0, 0, cellularField.getWidth(), cellularField.getHeight());
-			LogicHandler.getInstance().getTimer().cancel();
-			LogicHandler.getInstance().getTimer().purge();
 			LogicHandler.getInstance().simulate(this, count, xMax);
 		} catch (Exception e) {
 			System.out.println(e.getLocalizedMessage());
 		}
-	}
-
-	public int getxMax() {
-		return xMax;
 	}
 
 	public int getdMax() {
