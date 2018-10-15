@@ -3,6 +3,12 @@ package de.noack.artificial.sl1.model;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Die nachfolgende Klasse stellt das Zellfeld dar, welches eine zweidimensionale Liste enthält,
+ * die im Endeffekt das Zellfeld "aufspannt". Außerdem erhält das Zellfeld eine in der Logik definierte
+ * Strategie zur Referenzierung von Nachbarn, folglich die Umgebung. So kann u.a. eine Moore
+ * und eine von
+ */
 public class Cellfield {
 
 	private ArrayList <List <Cell>> cellField = new ArrayList <>();
