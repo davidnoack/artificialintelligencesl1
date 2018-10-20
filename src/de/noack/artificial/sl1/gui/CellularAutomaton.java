@@ -1,7 +1,6 @@
 package de.noack.artificial.sl1.gui;
 
 import de.noack.artificial.sl1.logic.LogicHandler;
-import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
@@ -126,14 +125,6 @@ public class CellularAutomaton extends Application {
 
 	public Canvas getCellularField() {
 		return cellularField;
-	}
-
-	public Button getStartSimulation() {
-		return startSimulation;
-	}
-
-	public GridPane getGrid() {
-		return grid;
 	}
 
 	public Label getIterationLabel() {

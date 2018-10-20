@@ -101,10 +101,11 @@ public class LogicHandler {
 			}
 			cellfield.applyRules();
 			for (List <Cell> cellList : cellfield.getCellfield()) {
-				for (Cell cell : cellList) {
-					gc.setFill(cell.getState().getColor());
-					gc.fillOval(cell.getxPos() * gui.getdMax() + 2, cell.getyPos() * gui.getdMax() + 2, gui.getdMax(), gui.getdMax());
-				}
+				for (Cell cell : cellList)
+					Platform.runLater(() -> {
+						gc.setFill(cell.getState().getColor());
+						gc.fillOval(cell.getxPos() * gui.getdMax() + 2, cell.getyPos() * gui.getdMax() + 2, gui.getdMax(), gui.getdMax());
+					});
 			}
 			Platform.runLater(() -> gui.getIterationLabel().setText("Iteration No.: " + timerCount));
 		}, 1, 1000, TimeUnit.MILLISECONDS));
@@ -122,25 +123,21 @@ public class LogicHandler {
 		return Arrays.asList((Rule) cell -> {
 			int[] counts = initCell(cell);
 			if ((cell.getState() == State.NADEL) && (counts[State.NADEL.ordinal()] + counts[State.TOTHOLZ.ordinal()] > 3)) {
-				int max = 100;
-				int min = 0;
-				int range = max - min + 1;
-				if (((int) (Math.random() * range) + min) < 90) {
+				if (new Random().nextDouble() <= 0.9) {
 					cell.setState(State.TOTHOLZ);
+					return;
 				}
 			}
-			if ((cell.getState() == State.LAUB) && (counts[State.LAUB.ordinal()] == 8)) {
-				cell.setState(State.TOTHOLZ);
-			}
-			int max = 100;
-			int min = 0;
-			int range = max - min + 1;
-			int probability = (int) (Math.random() * range) + min;
-			if ((cell.getState() == State.TOTHOLZ) && (counts[State.TOTHOLZ.ordinal()] > probability / 20)) {
-				if (probability < 50) {
+
+			if (cell.getState() == State.TOTHOLZ) {
+				if (new Random().nextDouble() <= 0.3) {
 					cell.setState(State.LAUB);
 				} else {
 					cell.setState(State.NADEL);
+				}
+			} else {
+				if (new Random().nextDouble() <= 0.1) {
+					cell.setState(State.TOTHOLZ);
 				}
 			}
 		});

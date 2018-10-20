@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/src/de/noack/artificial/sl1/gui/CellularAutomaton.java" line="36" />
+    <bookmark url="file://$PROJECT_DIR$/src/de/noack/artificial/sl1/gui/CellularAutomaton.java" line="35" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1ad5beaa-3008-4298-802b-9cf3b7280f03" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/artificialintelligencesl1/de/noack/artificial/sl1/gui/CellularAutomaton.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/artificialintelligencesl1/de/noack/artificial/sl1/gui/CellularAutomaton.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/artificialintelligencesl1/de/noack/artificial/sl1/logic/LogicHandler$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/artificialintelligencesl1/de/noack/artificial/sl1/logic/LogicHandler$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/artificialintelligencesl1/de/noack/artificial/sl1/logic/LogicHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/artificialintelligencesl1/de/noack/artificial/sl1/logic/LogicHandler.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/de/noack/artificial/sl1/gui/CellularAutomaton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/de/noack/artificial/sl1/gui/CellularAutomaton.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/de/noack/artificial/sl1/logic/LogicHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/de/noack/artificial/sl1/logic/LogicHandler.java" afterDir="false" />
     </list>
@@ -78,12 +82,12 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="2112" />
+          <entry key="java" value="2179" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="2112" />
+          <entry key="JAVA" value="2179" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.spring.boot.mvc.usages" />
@@ -109,7 +113,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/de/noack/artificial/sl1/model/Cell.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="850">
+            <state relative-caret-position="1054">
               <caret line="64" column="1" selection-start-line="64" selection-start-column="1" selection-end-line="64" selection-end-column="1" />
             </state>
           </provider>
@@ -118,7 +122,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/de/noack/artificial/sl1/model/Cellfield.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="850">
+            <state relative-caret-position="952">
               <caret line="57" column="1" selection-start-line="57" selection-start-column="1" selection-end-line="57" selection-end-column="1" />
             </state>
           </provider>
@@ -127,12 +131,12 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/de/noack/artificial/sl1/gui/CellularAutomaton.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="564">
-              <caret line="58" column="72" selection-start-line="58" selection-start-column="72" selection-end-line="58" selection-end-column="72" />
+            <state relative-caret-position="2023">
+              <caret line="132" column="1" selection-start-line="132" selection-start-column="1" selection-end-line="132" selection-end-column="1" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#962#963#0" expanded="true" />
-                <element signature="e#981#982#0" expanded="true" />
+                <element signature="e#1104#1105#0" expanded="true" />
+                <element signature="e#1123#1124#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -141,12 +145,14 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/de/noack/artificial/sl1/logic/LogicHandler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="108" column="41" selection-start-line="108" selection-start-column="41" selection-end-line="108" selection-end-column="41" />
+            <state relative-caret-position="196">
+              <caret line="129" column="13" selection-start-line="129" selection-start-column="13" selection-end-line="129" selection-end-column="13" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#7049#7050#0" expanded="true" />
-                <element signature="e#7073#7074#0" expanded="true" />
+                <element signature="e#1658#1659#0" expanded="true" />
+                <element signature="e#1683#1684#0" expanded="true" />
+                <element signature="e#7137#7138#0" expanded="true" />
+                <element signature="e#7161#7162#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -203,7 +209,7 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="2709" />
+    <option name="x" value="-8" />
     <option name="y" value="-8" />
     <option name="width" value="700" />
     <option name="height" value="703" />
@@ -362,7 +368,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="48609000" />
+    <option name="totallyTimeSpent" value="49742000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -467,38 +473,40 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/de/noack/artificial/sl1/model/Cell.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="850">
+        <state relative-caret-position="1054">
           <caret line="64" column="1" selection-start-line="64" selection-start-column="1" selection-end-line="64" selection-end-column="1" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/de/noack/artificial/sl1/model/Cellfield.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="850">
+        <state relative-caret-position="952">
           <caret line="57" column="1" selection-start-line="57" selection-start-column="1" selection-end-line="57" selection-end-column="1" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/de/noack/artificial/sl1/gui/CellularAutomaton.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="564">
-          <caret line="58" column="72" selection-start-line="58" selection-start-column="72" selection-end-line="58" selection-end-column="72" />
+        <state relative-caret-position="2023">
+          <caret line="132" column="1" selection-start-line="132" selection-start-column="1" selection-end-line="132" selection-end-column="1" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#962#963#0" expanded="true" />
-            <element signature="e#981#982#0" expanded="true" />
+            <element signature="e#1104#1105#0" expanded="true" />
+            <element signature="e#1123#1124#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/de/noack/artificial/sl1/logic/LogicHandler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="108" column="41" selection-start-line="108" selection-start-column="41" selection-end-line="108" selection-end-column="41" />
+        <state relative-caret-position="196">
+          <caret line="129" column="13" selection-start-line="129" selection-start-column="13" selection-end-line="129" selection-end-column="13" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#7049#7050#0" expanded="true" />
-            <element signature="e#7073#7074#0" expanded="true" />
+            <element signature="e#1658#1659#0" expanded="true" />
+            <element signature="e#1683#1684#0" expanded="true" />
+            <element signature="e#7137#7138#0" expanded="true" />
+            <element signature="e#7161#7162#0" expanded="true" />
           </folding>
         </state>
       </provider>
