@@ -1,6 +1,7 @@
 package de.noack.artificial.sl1.gui;
 
 import de.noack.artificial.sl1.logic.LogicHandler;
+import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
@@ -30,6 +31,9 @@ public class CellularAutomaton extends Application {
 	// Slider für das wählen der Feldgröße
 	private Slider slider = new Slider();
 
+	// Label für den aktuellen Durchlauf
+	private Label iterationLabel = new Label("Iteration No.: 0");
+
 	public static void main(String[] args) {
 		launch(args);
 	}
@@ -44,9 +48,15 @@ public class CellularAutomaton extends Application {
 			System.exit(0);
 		});
 
-		// Label Label für die Eingabe der Anzahl der Durchläufe
-		Label countLabel = new Label("Enter count: ");
-		countLabel.setFont(Font.font("Arial", FontWeight.BOLD, 20));
+		// Label für die Eingabe der Anzahl der Durchläufe
+		Label countLabel = new Label("Enter iteration count: ");
+		countLabel.setFont(Font.font("Arial", FontWeight.BOLD, 14));
+
+		// Label für die Feldgröße
+		Label sizeLabel = new Label("Choose fieldsize: ");
+		sizeLabel.setFont(Font.font("Arial", FontWeight.BOLD, 14));
+
+		iterationLabel.setFont(Font.font("Arial", FontWeight.BOLD, 14));
 
 		// Eingabefeld für die Anzahl der Durchläufe
 		TextField countField = new TextField("0");
@@ -75,13 +85,15 @@ public class CellularAutomaton extends Application {
 		grid.setVgap(10);
 		grid.setPadding(new Insets(0, 10, 0, 10));
 
-		grid.add(countLabel, 0, 0);
-		grid.add(countField, 1, 0);
-		grid.add(slider, 2, 0);
-		grid.add(sliderLabel, 3, 0);
-		grid.add(startSimulation, 4, 0);
-		grid.add(new Label("Iteration No.: " + LogicHandler.getInstance().getTimerCount()),5,0);
-		grid.add(cellularField, 0, 1, 5, 1);
+		int columnIndex = 0;
+		grid.add(countLabel, columnIndex++, 0);
+		grid.add(countField, columnIndex++, 0);
+		grid.add(sizeLabel, columnIndex++, 0);
+		grid.add(slider, columnIndex++, 0);
+		grid.add(sliderLabel, columnIndex++, 0);
+		grid.add(startSimulation, columnIndex++, 0);
+		grid.add(iterationLabel, columnIndex++, 0);
+		grid.add(cellularField, 0, 1, columnIndex, 1);
 
 		Scene scene = new Scene(grid, 1024, 1048);
 
@@ -122,5 +134,9 @@ public class CellularAutomaton extends Application {
 
 	public GridPane getGrid() {
 		return grid;
+	}
+
+	public Label getIterationLabel() {
+		return iterationLabel;
 	}
 }
