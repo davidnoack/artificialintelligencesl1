@@ -16,21 +16,22 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
+
+/**
+ * CellularAutomaton stellt eine JavaFX Anwendung bestehend aus zwei Eingabeparametern (Anzahl der
+ * Durchläufe und Feldgröße), einem Button zum Starten, sowie einem Zellfeld, welches anhand der
+ * Feldgröße entsprechend "gemalt" wird.
+ */
 public class CellularAutomaton extends Application {
 
-	private int xMax = 100;
-	private int yMax = 100;
+	// Durchmesser einer Zelle
 	private int dMax = 10;
 
 	// Zellfeld
 	private Canvas cellularField = new Canvas();
-	private Button startSimulation = new Button();
-	GridPane grid = new GridPane();
 
-	// Slider für das wählen der Feldgröße
-	private Slider slider = new Slider();
-
-	// Label für den aktuellen Durchlauf
+	// Label für den aktuellen Durchlauf -> Muss als globale Variable deklariert sein,
+	// um getter Zugriff von außerhalb zu ermöglichen.
 	private Label iterationLabel = new Label("Iteration No.: 0");
 
 	public static void main(String[] args) {
@@ -60,6 +61,15 @@ public class CellularAutomaton extends Application {
 		// Eingabefeld für die Anzahl der Durchläufe
 		TextField countField = new TextField("0");
 
+		// Sicherstellen, dass nur Nummern eingetippt werden können.
+		countField.textProperty().addListener((observable, oldValue, newValue) -> {
+			if (!newValue.matches("\\d*")) {
+				countField.setText(newValue.replaceAll("[^\\d]", ""));
+			}
+		});
+
+		// Slider für das wählen der Feldgröße
+		Slider slider = new Slider();
 		slider.setMin(0);
 		slider.setMax(100);
 		slider.setOrientation(Orientation.HORIZONTAL);
@@ -71,15 +81,18 @@ public class CellularAutomaton extends Application {
 		slider.valueProperty().addListener((obs, oldVal, newVal) ->
 				slider.setValue(Math.round(newVal.doubleValue())));
 
-		// Wert des Sliders
+		// Aktueller Wert des Sliders zur Ausgabe
 		Label sliderLabel = new Label(String.valueOf(slider.getValue()).replace(".0", ""));
 		sliderLabel.setFont(Font.font("Arial", FontWeight.NORMAL, 20));
 		slider.valueProperty().addListener(e -> sliderLabel.setText(String.valueOf(slider.getValue()).replace(".0", "")));
 
-		// Startknopf
+		// Button zum Starten der Anwendung
+		Button startSimulation = new Button();
 		startSimulation.setText("Start simulation!");
-		startSimulation.setOnAction(e -> startSimulation(Integer.valueOf(countField.getText()).intValue()));
+		startSimulation.setOnAction(e -> startSimulation(Integer.valueOf(countField.getText()).intValue(), new Double(slider.getValue()).intValue()));
 
+		// Raster für die Oberfläche wird befüllt.
+		GridPane grid = new GridPane();
 		grid.setHgap(10);
 		grid.setVgap(10);
 		grid.setPadding(new Insets(0, 10, 0, 10));
@@ -102,21 +115,14 @@ public class CellularAutomaton extends Application {
 		primaryStage.show();
 	}
 
-	private void startSimulation(int count) {
+	private void startSimulation(int count, int fieldSize) {
 
-		xMax = new Double(slider.getValue()).intValue();
-		yMax = xMax;
-		dMax = 1000 / xMax;
+		dMax = 1000 / fieldSize;
 
-		// Zellfeld
-		cellularField.setHeight(yMax * dMax + 2);
-		cellularField.setWidth(xMax * dMax + 2);
-		try {
-			cellularField.getGraphicsContext2D().clearRect(0, 0, cellularField.getWidth(), cellularField.getHeight());
-			LogicHandler.getInstance().simulate(this, count, xMax);
-		} catch (Exception e) {
-			System.out.println(e.getLocalizedMessage());
-		}
+		cellularField.setHeight(fieldSize * dMax + 2);
+		cellularField.setWidth(fieldSize * dMax + 2);
+		cellularField.getGraphicsContext2D().clearRect(0, 0, cellularField.getWidth(), cellularField.getHeight());
+		LogicHandler.getInstance().simulate(this, count, fieldSize);
 	}
 
 	public int getdMax() {

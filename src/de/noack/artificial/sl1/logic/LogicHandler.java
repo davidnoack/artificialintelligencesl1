@@ -19,14 +19,19 @@ import java.util.concurrent.TimeUnit;
  */
 public class LogicHandler {
 
+	// Schedulued Executer Service, welcher jede Sekunde eine Iteration durchführt
+	// Single Threaded, um Concurrency Probleme zu vermeiden
 	ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
 
 	// Hier wird die einzig erzeugbare Instanz deklariert und instanziiert.
 	private static LogicHandler ourInstance = new LogicHandler();
+
 	// Für jeden Durchlauf der Regeln wird der Timer Count um 1 erhöht. Dies ist notwendig, um sicherzustellen, dass nach Erreichen der gewünschten
-	// Durchlaufzahl, kein weiterer Task mehr durchgeführt wird. Er wird mit 0 initialisiert.
+	// Durchlaufzahl, kein weiterer Task mehr durchgeführt wird. Außerdem dient er zur Darstellung der aktuellen Anzahl an Iterationen. Er wird mit 0
+	// initialisiert.
 	int timerCount = 0;
 
+	// Diese Liste enthält Referenzen auf zukünftig durchzuführende Iterationen.
 	List <ScheduledFuture> taskList = new ArrayList <>();
 
 	// Allein über diese Methode kann die einzig vorhandene Instanz bezogen werden.
