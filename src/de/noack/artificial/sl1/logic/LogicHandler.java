@@ -12,10 +12,11 @@ import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
 /**
- * Die Klasse LogicHandler kapselt sämtliche Zugriffe, welche von außen auf das Modell durchgeführt werden. Es handelt sich hierbei um ein Singleton,
- * d.h. die Klasse ist lediglich einmalig instanziierbar. Dieser Ansatz ist an dieser Stelle gewählt worden, da Java Executor Service Elemente
- * verwendet werden und die Ergebnisse, welche aus den Berechnungen erfolgen, stets konsistent sein müssen. Außerdem wird das Modell hier einmalig zum
- * "Leben erweckt", d.h. zwei Instanzen würden auch zu zwei parallel existierenden Kontexten führen.
+ * Die Klasse LogicHandler kapselt sämtliche Zugriffe, welche von außen auf das Modell durchgeführt werden.
+ * Es handelt sich hierbei um ein Singleton, d.h. die Klasse ist lediglich einmalig instanziierbar. Dieser
+ * Ansatz ist an dieser Stelle gewählt worden, da Java Executor Service Elemente verwendet werden und die
+ * Ergebnisse, welche aus den Berechnungen erfolgen, stets konsistent sein müssen. Außerdem wird das Modell
+ * hier einmalig zum "Leben erweckt", d.h. zwei Instanzen würden auch zu zwei parallel existierenden Kontexten führen.
  */
 public class LogicHandler {
 
@@ -26,9 +27,9 @@ public class LogicHandler {
 	// Hier wird die einzig erzeugbare Instanz deklariert und instanziiert.
 	private static LogicHandler ourInstance = new LogicHandler();
 
-	// Für jeden Durchlauf der Regeln wird der Timer Count um 1 erhöht. Dies ist notwendig, um sicherzustellen, dass nach Erreichen der gewünschten
-	// Durchlaufzahl, kein weiterer Task mehr durchgeführt wird. Außerdem dient er zur Darstellung der aktuellen Anzahl an Iterationen. Er wird mit 0
-	// initialisiert.
+	// Für jeden Durchlauf der Regeln wird der Timer Count um 1 erhöht. Dies ist notwendig, um sicherzustellen,
+	// dass nach Erreichen der gewünschten Durchlaufzahl, kein weiterer Task mehr durchgeführt wird. Außerdem
+	// dient er zur Darstellung der aktuellen Anzahl an Iterationen. Er wird mit 0 initialisiert.
 	int timerCount = 0;
 
 	// Diese Liste enthält Referenzen auf zukünftig durchzuführende Iterationen.
@@ -39,8 +40,9 @@ public class LogicHandler {
 		return ourInstance;
 	}
 
-	// Die Methode "simulate" erhält die graphische Oberfläche als Input und manipuliert diese anhand der Eingabedaten. Hierzu wird zunächst das
-	// fachliche Modell initialisiert und im Anschluss anhand der gewählten Parameter mit den definierten Regeln manipuliert.
+	// Die Methode "simulate" erhält die graphische Oberfläche als Input und manipuliert diese anhand der
+	// Eingabedaten. Hierzu wird zunächst das fachliche Modell initialisiert und im Anschluss anhand der
+	// gewählten Parameter mit den definierten Regeln manipuliert.
 	public void simulate(CellularAutomaton gui, int count, int fieldSize) {
 		for (ScheduledFuture scheduledFuture : taskList) {
 			scheduledFuture.cancel(true);
@@ -91,6 +93,7 @@ public class LogicHandler {
 		});
 		cellfield.getNeighbourStrategy().initMooreNeighbours(cellfield);
 
+		// Initiales Zellfeld wird gemalt
 		GraphicsContext gc = gui.getCellularField().getGraphicsContext2D();
 		for (List <Cell> cellList : cellfield.getCellfield()) {
 			for (Cell cell : cellList) {
@@ -99,6 +102,8 @@ public class LogicHandler {
 			}
 		}
 
+		// Der Executor Service plant die Durchführung des nachfolgenden Codes mit einem Intervall von einer Sekunde.
+		// Die zurückgegebenen Referenzen werden zum späteren Canceln an die taskList übergeben.
 		taskList.add(executorService.scheduleAtFixedRate(() -> {
 			if (timerCount++ >= count) {
 				executorService.shutdown();
@@ -113,21 +118,23 @@ public class LogicHandler {
 					});
 			}
 			Platform.runLater(() -> gui.getIterationLabel().setText("Iteration No.: " + timerCount));
-		}, 1, 1000, TimeUnit.MILLISECONDS));
+		}, 1000, 1000, TimeUnit.MILLISECONDS));
 	}
 
 	/**
-	 * Unter der Methode defineRules sind je nach Use Case Regeln definiert, welche dem Modell zur Selbstanwendung übergeben werden. countAlives
+	 * Unter der Methode defineRules sind je nach Use Case Regeln definiert, welche dem Modell
+	 * zur Selbstanwendung übergeben werden. countAlives
 	 *
 	 * @return Liste aus den definierten Regeln.
 	 */
 	private List <Rule> defineRules() {
 
-		// Da die Regeln Teil der Logik sind, werden sie hier im Logic Handler einzeln definiert, in eine ArrayList gepackt und dem Modell zur
-		// Selbstanwendung übergeben.
+		// Da die Regeln Teil der Logik sind, werden sie hier im Logic Handler einzeln definiert,
+		// in eine ArrayList gepackt und dem Modell zur Selbstanwendung übergeben.
 		return Arrays.asList((Rule) cell -> {
 			int[] counts = initCell(cell);
-			if ((cell.getState() == State.NADEL) && (counts[State.NADEL.ordinal()] + counts[State.TOTHOLZ.ordinal()] > 3)) {
+			if ((cell.getState() == State.NADEL) && (counts[State.NADEL.ordinal()] +
+					counts[State.TOTHOLZ.ordinal()] > 3)) {
 				if (new Random().nextDouble() <= 0.9) {
 					cell.setState(State.TOTHOLZ);
 					return;
@@ -148,6 +155,7 @@ public class LogicHandler {
 		});
 	}
 
+	// Zählt die Anzahl der Nachbarn je Status
 	private int[] initCell(Cell cell) {
 		Set <Cell> neighbours = cell.getNeighbours();
 		int countLaubholz = 0;
