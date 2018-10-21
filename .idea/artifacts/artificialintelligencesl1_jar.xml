@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="artificialintelligencesl1:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/artificialintelligencesl1_jar</output-path>
+    <root id="archive" name="artificialintelligencesl1.jar">
+      <element id="module-output" name="artificialintelligencesl1" />
+    </root>
+  </artifact>
+</component>

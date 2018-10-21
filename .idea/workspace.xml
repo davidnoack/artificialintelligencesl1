@@ -4,9 +4,7 @@
     <bookmark url="file://$PROJECT_DIR$/src/de/noack/artificial/sl1/gui/CellularAutomaton.java" line="36" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1ad5beaa-3008-4298-802b-9cf3b7280f03" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/src/de/noack/artificial/sl1/logic/LogicHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/de/noack/artificial/sl1/logic/LogicHandler.java" afterDir="false" />
-    </list>
+    <list default="true" id="1ad5beaa-3008-4298-802b-9cf3b7280f03" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -159,8 +157,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/de/noack/artificial/sl1/logic/LogicHandler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="680">
-              <caret line="159" column="53" lean-forward="true" selection-start-line="159" selection-start-column="53" selection-end-line="159" selection-end-column="53" />
+            <state relative-caret-position="323">
+              <caret line="138" column="49" lean-forward="true" selection-start-line="138" selection-start-column="49" selection-end-line="138" selection-end-column="49" />
               <folding>
                 <element signature="e#1658#1659#0" expanded="true" />
                 <element signature="e#1683#1684#0" expanded="true" />
@@ -220,9 +218,9 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="1211" />
-    <option name="y" value="-8" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="1359" />
+    <option name="y" value="581" />
     <option name="width" value="700" />
     <option name="height" value="703" />
   </component>
@@ -284,9 +282,9 @@
     <property name="aspect.path.notification.shown" value="true" />
     <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1539528275563" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../sl1 - old" />
-    <property name="project.structure.last.edited" value="SDKs" />
-    <property name="project.structure.proportion" value="0.0" />
-    <property name="project.structure.side.proportion" value="0.0" />
+    <property name="project.structure.last.edited" value="Artifacts" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
     <property name="settings.editor.selected.configurable" value="preferences.keymap" />
   </component>
@@ -376,12 +374,12 @@
       <workItem from="1539513705890" duration="8416000" />
       <workItem from="1539625597571" duration="2642000" />
       <workItem from="1540058416619" duration="1772000" />
-      <workItem from="1540109194193" duration="9367000" />
+      <workItem from="1540109194193" duration="9630000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="62532000" />
+    <option name="totallyTimeSpent" value="62795000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -393,10 +391,10 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="2576" height="1416" extended-state="6" />
+    <frame x="1359" y="581" width="700" height="703" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.066375196" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2609375" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -406,7 +404,7 @@
       <window_info id="Learn" order="7" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3286334" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.007800312" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.017574692" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.33512682" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -513,8 +511,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/de/noack/artificial/sl1/logic/LogicHandler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="680">
-          <caret line="159" column="53" lean-forward="true" selection-start-line="159" selection-start-column="53" selection-end-line="159" selection-end-column="53" />
+        <state relative-caret-position="323">
+          <caret line="138" column="49" lean-forward="true" selection-start-line="138" selection-start-column="49" selection-end-line="138" selection-end-column="49" />
           <folding>
             <element signature="e#1658#1659#0" expanded="true" />
             <element signature="e#1683#1684#0" expanded="true" />
